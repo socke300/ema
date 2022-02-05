@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-searchbar #searchbar *ngIf="searchbarVisible" (ionInput)="doSearch(searchbar.value)"
+      (ionCancel)="cancelSearch()" [showCancelButton]="true" placeholder="Modul suchen"></ion-searchbar>
+    <ion-title *ngIf="!searchbarVisible">Wähle ein Modul aus</ion-title>
+    <ion-buttons slot="end" *ngIf="!searchbarVisible">
+      <ion-button (click)="startsearch()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button *ngFor="let module of filteredModules" (click)="modalController.dismiss(module)"> {{module.name}}
+    </ion-item>
+  </ion-list>
+  <ion-card *ngIf="filteredModules.length == 0">
+    <p class="ion-text-center" expand="block">Es wurde leider <br /> kein Modul
+      gefunden 😢</p>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="modalController.dismiss(); navController.pop()" slot="start" color="danger" shape="round">
+      Abbrechen
+    </ion-button>
+    <ion-button (click)="modalController.dismiss()" slot="end" shape="round">
+      Überspringen
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

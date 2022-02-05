@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Leistungen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showStats()">
+        <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="createRecord()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="white">
+  <ion-list>
+    <ion-item button *ngFor="let record of records"> 
+      {{record.moduleName}} {{record.moduleNr}} 
+      ({{record.grade}}%, {{record.crp}}crp)
+    </ion-item>
+  </ion-list>
+</ion-content>

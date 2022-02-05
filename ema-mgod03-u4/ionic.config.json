@@ -1,0 +1,7 @@
+{
+  "name": "ema-mgod03-u1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

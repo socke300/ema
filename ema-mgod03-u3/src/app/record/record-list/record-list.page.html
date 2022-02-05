@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-searchbar #search *ngIf="searchbarVisible"  (ionInput)="doSearch(search.value)" (ionCancel)="cancelSearch()" 
+      [showCancelButton]="true" placeholder="Leistung suchen"> 
+    </ion-searchbar>
+    <ion-title *ngIf="!searchbarVisible">Leistungen</ion-title>
+    <ion-buttons slot="end" *ngIf="!searchbarVisible">
+      <ion-button (click)="startsearch()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="shareRecords()">
+        <ion-icon name="share-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="showStats()">
+        <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="createRecord()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!searchbarVisible">
+  <ion-list >
+    <ion-item-sliding *ngFor="let record of records">
+      <ion-item button (click)="editRecord(record)">
+        {{record.moduleName}} {{record.moduleNr}}
+        ({{record.grade}}%, {{record.crp}}crp)
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteRecord(record)" color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+  </ion-list>
+
+  <ion-card *ngIf="records.length == 0">
+    <p *ngIf="records.length == 0" class="ion-text-center" expand="block">Du hast leider noch <br /> keine Leistungen
+      eingetragen 😢</p>
+    <ion-button class="ion-padding-horizontal" expand="block" (click)="createRecord()">
+      Jetzt Leistung anlegen</ion-button>
+  </ion-card>
+
+</ion-content>
+
+<ion-content *ngIf="searchbarVisible">
+  <ion-list >
+    <ion-item-sliding *ngFor="let record of recordsSearch">
+      <ion-item button (click)="editRecord(record)">
+        {{record.moduleName}} {{record.moduleNr}}
+        ({{record.grade}}%, {{record.crp}}crp)
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteRecord(record)" color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+  </ion-list>
+
+  <ion-card *ngIf="recordsSearch.length == 0">
+    <p class="ion-text-center" expand="block">Es wurde leider <br /> keine Leistungen
+      gefunden 😢</p>
+  </ion-card>
+
+</ion-content>
